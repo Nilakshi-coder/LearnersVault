@@ -13,18 +13,18 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.learning.vault.config.HibernateUtil;
-import com.learning.vault.entity.Course;
+import com.learning.vault.entity.Subject;
 
 /**
- * Servlet implementation class CourseServlet
+ * Servlet implementation class SubjectServlet
  */
-public class CourseServlet extends HttpServlet {
+public class SubjectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CourseServlet() {
+    public SubjectServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,18 +41,18 @@ public class CourseServlet extends HttpServlet {
 				Session dbSession = factory.openSession();
 				dbSession.beginTransaction();
 				
-				List<Course> courses = (List<Course>) dbSession.createQuery("from Course").list();
+				List<Subject> subjects = (List<Subject>) dbSession.createQuery("from Subject").list();
 				
-				request.setAttribute("courseList", courses);
+				request.setAttribute("subjectList", subjects);
 				
 				dbSession.getTransaction().commit();
 				dbSession.close();
 			}
 		}catch (Exception e) {
-			System.err.println("Error while calling Course Servlet "+e);
+			System.err.println("Error while calling Subject Servlet "+e);
 		}
 		
-		RequestDispatcher rd = request.getRequestDispatcher("course.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("subject.jsp");
 		rd.forward(request, response);
 	}
 

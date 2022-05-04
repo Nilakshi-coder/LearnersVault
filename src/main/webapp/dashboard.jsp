@@ -23,6 +23,14 @@
 					<td><a href="course">Course Details</a></td>
 				</tr>
 				
+				<tr>
+					<td><a href="subject">Subject Details</a></td>
+				</tr>
+				
+				<tr>
+					<td><a href="teacher">Teacher Details</a></td>
+				</tr>
+				
 			</table>
 			
 		</h4>
