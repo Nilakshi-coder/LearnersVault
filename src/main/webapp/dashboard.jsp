@@ -18,6 +18,11 @@
 				<tr>
 					<td><a href="student">Student Details</a></td>
 				</tr>
+				
+				<tr>
+					<td><a href="course">Course Details</a></td>
+				</tr>
+				
 			</table>
 			
 		</h4>
