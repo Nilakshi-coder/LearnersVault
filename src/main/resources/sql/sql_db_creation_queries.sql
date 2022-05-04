@@ -13,6 +13,7 @@ CREATE TABLE student
     student_details_id INT,
     PRIMARY KEY(student_id)
 )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+USE LEARNERS_ACADEMY;
 
 DROP TABLE IF EXISTS student_details;
 
@@ -20,7 +21,7 @@ CREATE TABLE student_details
 (
 	id INT AUTO_INCREMENT,
     contact_no VARCHAR(10),
-    email_address VARCHAR(20),
+    email_address VARCHAR(40),
     PRIMARY KEY(id)
 )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
