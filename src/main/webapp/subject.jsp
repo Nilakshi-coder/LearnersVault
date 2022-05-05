@@ -14,6 +14,8 @@
 </head>
 <body>
 
+	<%@include file="header.jsp"%>
+
 	<div class="w3-container">
 		<h3><b>Subject Details</b></h3>
 		

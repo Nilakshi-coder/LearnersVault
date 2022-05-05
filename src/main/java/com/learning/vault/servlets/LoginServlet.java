@@ -32,7 +32,7 @@ public class LoginServlet extends HttpServlet {
 		
 		// create session
 		System.out.println("Username: "+request.getParameter("username"));
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(true);
 		session.setAttribute("username", request.getParameter("username"));
 		
 		response.sendRedirect("dashboard");

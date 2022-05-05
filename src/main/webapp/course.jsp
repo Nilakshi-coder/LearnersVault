@@ -1,4 +1,5 @@
 <%@page import="com.learning.vault.entity.Course"%>
+<%@page import="com.learning.vault.entity.Subject"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -14,12 +15,14 @@
 </head>
 <body>
 
+	<%@include file="header.jsp"%>
+
 	<div class="w3-container">
 		<h3><b>Course Details</b></h3>
 		
 		<%
-		List<Course> courseList = (List<Course>) request.getAttribute("courseList");
-		int courseCount = courseList.size();
+		List<Course> courseList = (List<Course>) request.getAttribute("courses");
+		int courseCount = courseList!= null ? courseList.size() : 0;
 		boolean present = courseCount > 0;
 		System.out.println("CourseCount: "+courseCount+" present: "+present);
 		%>
@@ -30,6 +33,8 @@
 				<tr class="w3-blue">
 					<th>CourseId</th>
 					<th>CourseName</th>
+					<th>Subject</th>
+					<th>Teacher</th>
 				</tr>
 				
 				<%
@@ -39,6 +44,8 @@
 				<tr>
 					<td><%=c.getCourseId()%></td>
 					<td><%=c.getCourseName()%></td>
+					<td><a href="course/showSubjects?courseId=<%=c.getCourseId()%>">View</a></td>
+					<td><a href="course/showTeachers?courseId=<%=c.getCourseId()%>">View</a></td>
 				</tr>
 	
 				<%}%>
@@ -48,9 +55,13 @@
 			</c:when>
 			
 			<c:otherwise>
-				No students present.	
+				No Courses present.	
 			</c:otherwise>
 		</c:choose>
+		
+		<br>
+		<br>
+		<a href="dashboard">Back</a>
 	</div>
 	
 </body>

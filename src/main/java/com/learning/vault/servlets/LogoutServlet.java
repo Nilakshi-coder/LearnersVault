@@ -27,14 +27,16 @@ public class LogoutServlet extends HttpServlet {
 	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession(true);
 		
 		PrintWriter out = response.getWriter();
 		
 		if(session!=null) {
+            session.removeAttribute("username");
 			session.invalidate();
-			out.print("You are successfully logged out!");  
+			out.print("You are successfully logged out!");
 		}
+		request.getRequestDispatcher("index.jsp").forward(request, response);
 		
 		out.close();
 		

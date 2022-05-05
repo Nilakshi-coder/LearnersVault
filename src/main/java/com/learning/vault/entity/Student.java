@@ -32,7 +32,7 @@ public class Student {
 	@Column(name="lname")
 	private String lname;
 	
-	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	@JoinColumn(name="enrollment_id")
 	private Course course;
 	

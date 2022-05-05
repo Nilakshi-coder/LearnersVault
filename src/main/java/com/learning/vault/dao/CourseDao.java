@@ -6,11 +6,12 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.learning.vault.config.HibernateUtil;
-import com.learning.vault.entity.Student;
+import com.learning.vault.entity.Course;
+import com.learning.vault.entity.Subject;
 
 public class CourseDao {
 
-	public void saveStudent(Student student) {
+	public void saveCourse(Course course) {
 		Transaction transaction = null;
 		Session session = null;
 		try{
@@ -19,8 +20,8 @@ public class CourseDao {
 			if(session!=null) {
 				// start a transaction
 	            transaction = session.beginTransaction();
-	            // save the student object
-	            session.save(student);
+	            // save the Course object
+	            session.save(course);
 	            // commit transaction
 	            transaction.commit();
 			}
@@ -28,14 +29,14 @@ public class CourseDao {
 			if (transaction != null) {
                 transaction.rollback();
             }
-            System.err.println("Error while saving Student details in DB: "+e);
+            System.err.println("Error while saving Course details in DB: "+e);
 		}finally {
 			if(session!=null)
 				session.close();
 		}
 	}
 	
-	public void updateStudent(Student student) {
+	public void updateCourse(Course course) {
 		Transaction transaction = null;
 		Session session = null;
 		try{
@@ -44,8 +45,8 @@ public class CourseDao {
 			if(session!=null) {
 				// start a transaction
 	            transaction = session.beginTransaction();
-	            // save the student object
-	            session.update(student);
+	            // save the Course object
+	            session.update(course);
 	            // commit transaction
 	            transaction.commit();
 			}
@@ -53,14 +54,14 @@ public class CourseDao {
 			if (transaction != null) {
                 transaction.rollback();
             }
-            System.err.println("Error while updating Student details in DB: "+e);
+            System.err.println("Error while updating Course details in DB: "+e);
 		}finally {
 			if(session!=null)
 				session.close();
 		}
 	}
 	
-	public void deleteStudent(Student student) {
+	public void deleteCourse(Course course) {
 		Transaction transaction = null;
 		Session session = null;
 		try{
@@ -69,8 +70,8 @@ public class CourseDao {
 			if(session!=null) {
 				// start a transaction
 	            transaction = session.beginTransaction();
-	            // save the student object
-	            session.delete(student);
+	            // save the Course object
+	            session.delete(course);
 	            // commit transaction
 	            transaction.commit();
 			}
@@ -78,25 +79,25 @@ public class CourseDao {
 			if (transaction != null) {
                 transaction.rollback();
             }
-            System.err.println("Error while deleting Student details from DB: "+e);
+            System.err.println("Error while deleting Course details from DB: "+e);
 		}finally {
 			if(session!=null)
 				session.close();
 		}
 	}
 	
-	public Student getStudent(int id) {
+	public Course getCourse(int id) {
 		Transaction transaction = null;
 		Session session = null;
-		Student student = null;
+		Course course = null;
 		try{
 			session = HibernateUtil.buildSessionFactory().openSession();
 		
 			if(session!=null) {
 				// start a transaction
 	            transaction = session.beginTransaction();
-	            // save the student object
-	            student = (Student) session.get(Student.class, id);
+	            // save the Course object
+	            course = (Course) session.get(Course.class, id);
 	            // commit transaction
 	            transaction.commit();
 			}
@@ -104,26 +105,31 @@ public class CourseDao {
 			if (transaction != null) {
                 transaction.rollback();
             }
-            System.err.println("Error while fetching Student details from DB: "+e);
+            System.err.println("Error while fetching Course details from DB: "+e);
 		}finally {
 			if(session!=null)
 				session.close();
 		}
-		return student;
+		return course;
 	}
 	
-	public List<Student> getAllStudents() {
+	public List<Subject> getSubjects(int id) {
 		Transaction transaction = null;
 		Session session = null;
-		List<Student> students = null;
+		List<Subject> subjects = null;
 		try{
 			session = HibernateUtil.buildSessionFactory().openSession();
 		
 			if(session!=null) {
 				// start a transaction
 	            transaction = session.beginTransaction();
-	            // save the student object
-	            students = session.createQuery("from Student").list();
+	            // save the Course object
+	            Course course = (Course) session.get(Course.class, id);
+	            
+	            if(course!=null) {
+	            	subjects = course.getSubjects();
+	            }
+	            
 	            // commit transaction
 	            transaction.commit();
 			}
@@ -131,11 +137,39 @@ public class CourseDao {
 			if (transaction != null) {
                 transaction.rollback();
             }
-            System.err.println("Error while fetching Student details from DB: "+e);
+            System.err.println("Error while fetching Subject details from DB: "+e);
 		}finally {
 			if(session!=null)
 				session.close();
 		}
-		return students;
+		return subjects;
+	}
+	
+	public List<Course> getAllCourses() {
+		Transaction transaction = null;
+		Session session = null;
+		List<Course> courses = null;
+		try{
+			session = HibernateUtil.buildSessionFactory().openSession();
+		
+			if(session!=null) {
+				// start a transaction
+	            transaction = session.beginTransaction();
+	            // save the Course object
+	            courses = session.createQuery("from Course").list();
+	            // commit transaction
+	            transaction.commit();
+			}
+		}catch (Exception e) {
+			if (transaction != null) {
+                transaction.rollback();
+            }
+            System.err.println("Error while fetching Course details from DB: "+e);
+		}finally { 
+			if(session!=null) 
+				session.close();	
+		}
+			 
+		return courses;
 	}
 }

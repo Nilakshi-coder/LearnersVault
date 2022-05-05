@@ -35,12 +35,14 @@ public class ValidationFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		System.out.println("Hi from Filter");
 		
+		System.out.println(request.getParameter("username"));
 		String username = request.getParameter("username");
 		System.out.println("Username: "+username);
 		String password = request.getParameter("password");
 		System.out.println("Password: "+password);
 		
 		if(validateUserCredentials(username, password)) {
+			request.setAttribute("username", username);
 			chain.doFilter(request, response);
 		}else {
 			PrintWriter out=response.getWriter();

@@ -26,7 +26,7 @@
 			
 			<tr> 
 				<td style="padding: 1%;margin: 1%"> <p> Username: </p> </td>
-				<td style="padding: 1%;margin: 1%"> <input type="text" name="username" /> </td>
+				<td style="padding: 1%;margin: 1%"> <input type="text" name="username"/> </td>
 			</tr>
 			
 			<tr>

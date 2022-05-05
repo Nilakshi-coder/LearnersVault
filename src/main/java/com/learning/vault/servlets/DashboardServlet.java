@@ -20,29 +20,29 @@ import com.learning.vault.entity.Student;
  */
 public class DashboardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public DashboardServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public DashboardServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session=request.getSession(false);
-		PrintWriter out = response.getWriter();
-		
+
 		if(session!=null) {
+			System.out.println("sessionId: "+session.getId());
+			PrintWriter out = response.getWriter();
+
 			System.out.println("Username: "+session.getAttribute("username"));
-			request.getServletContext().setAttribute("username", session.getAttribute("username"));
-			request.getRequestDispatcher("dashboard.jsp").forward(request, response);	
-			
+			request.getRequestDispatcher("dashboard.jsp").forward(request, response);
 		}else {
-			response.sendRedirect("index.jsp");
+			request.getRequestDispatcher("index.jsp").forward(request, response);
 		}
 	}
 

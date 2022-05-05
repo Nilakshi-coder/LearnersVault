@@ -6,6 +6,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page isELIgnored = "true" %>
+<%@ page session="true" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,56 +17,67 @@
 </head>
 <body>
 
+	<%@include file="header.jsp"%>
+
 	<div class="w3-container">
-		<h3><b>Students Details</b></h3>
-		
+		<h3 style="margin-left: 20%; width: 60%; text-align: center"><b>Students Details</b></h3>
+				
 		<%
-		List<Student> studentList = (List<Student>) request.getAttribute("studentList");
+		List<Student> studentList = (List<Student>) request.getAttribute("students");
 		int studentCount = studentList.size();
 		boolean present = studentCount > 0;
 		System.out.println("StudentCount: "+studentCount+" present: "+present);
 		%>
-
+		
 		<c:choose>
 			<c:when test="<%=present%>">
-				<table class="w3-table-all">
+				<table class="w3-table-all" style="margin-left: 20%; width: 60%">
 				<tr class="w3-blue">
 					<th>StudentId</th>
 					<th>FirstName</th>
 					<th>LastName</th>
 					<th>Email Address</th>
 					<th>Contact Number</th>
-					<th>Course</th>
+					<!-- <th>Course</th> -->
 				</tr>
 				
-				<%
-				for (Student std : studentList) {
-				%>
-	
-				<tr>
-					<td><%=std.getStudent_id()%></td>
-					<td><%=std.getFname()%></td>
-					<td><%=std.getLname()%></td>
-	
-					<%StudentDetails stdDtl = std.getStudentDetails();
-						if (stdDtl != null) { %>
-					<td><%=stdDtl.getEmailAddress()%></td>
-					<td><%=stdDtl.getContactNo()%></td>
-					<%} else {%>
-					<td>NOTSET</td>
-					<td>NOTSET</td>
-					<%}%>
+				<% for (Student std : studentList) { %>
+					<form action="enrollStudent" method="get">
+						<tr>
+							<td><%=std.getStudent_id()%></td>
+							<td><%=std.getFname()%></td>
+							<td><%=std.getLname()%></td>
+							
+							<%StudentDetails stdDtl = std.getStudentDetails();%>
+							
+							<c:choose>
+								<c:when test="<%= (stdDtl != null) %>">
+									<td><%=stdDtl.getEmailAddress()%></td>
+									<td><%=stdDtl.getContactNo()%></td>
+								</c:when>
+
+								<c:otherwise>
+									<td>NOTSET</td>
+									<td>NOTSET</td>
+								</c:otherwise>
+							</c:choose>
+							
+							<%-- <%Course course = std.getCourse(); %>
+							
+							<c:choose>
+								<c:when test="<%= (course != null) %>">
+									<td><%=course.getCourseName()%></td>
+								</c:when>
+
+								<c:otherwise>
+									<input type="hidden" value="<%=std.getStudent_id()%>" name="student"/>
+									<td><input type="submit" value="Assign Course"/></td>
+								</c:otherwise>
+							</c:choose> --%>
+						</tr>
+					</form>
+				<% } %>
 					
-					<%Course course = std.getCourse();
-						if (course != null) { %>
-					<td><%=course.getCourseName()%></td>
-					<%} else {%>
-					<td><a href="add-course">click here to add course</a></td>
-					<%}%>
-				</tr>
-	
-				<%}%>
-				
 				</table>
 				
 			</c:when>
@@ -74,6 +86,9 @@
 				No students present.	
 			</c:otherwise>
 		</c:choose>
+		<br>
+		<b style="margin-right: 20%; width: 60%;" class="w3-right"><a href="dashboard">Back</a></b>
+	
 	</div>
 	
 </body>

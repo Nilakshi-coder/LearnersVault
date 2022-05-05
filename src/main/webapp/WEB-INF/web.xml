@@ -73,7 +73,7 @@
   </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>CourseServlet</servlet-name>
-  	<url-pattern>/course</url-pattern>
+  	<url-pattern>/course/*</url-pattern>
   </servlet-mapping>
    <servlet-mapping>
   	<servlet-name>SubjectServlet</servlet-name>
