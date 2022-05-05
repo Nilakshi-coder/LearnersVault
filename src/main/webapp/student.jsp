@@ -18,16 +18,24 @@
 <body>
 
 	<%@include file="header.jsp"%>
-
-	<div class="w3-container">
-		<h3 style="margin-left: 20%; width: 60%; text-align: center"><b>Students Details</b></h3>
-				
-		<%
+	
+	<%
 		List<Student> studentList = (List<Student>) request.getAttribute("students");
-		int studentCount = studentList.size();
+		int studentCount = studentList!=null ? studentList.size() : 0;
 		boolean present = studentCount > 0;
 		System.out.println("StudentCount: "+studentCount+" present: "+present);
-		%>
+		String courseName = (String)request.getAttribute("courseName");
+	%>
+
+	<div class="w3-container">
+		<h3 style="margin-left: 20%; width: 60%; text-align: center">
+			<b>
+				Students Details
+				<c:if test="<%=courseName!=null%>">
+					for <%=courseName%> 
+				</c:if>		
+			</b>
+		</h3>
 		
 		<c:choose>
 			<c:when test="<%=present%>">
@@ -83,7 +91,7 @@
 			</c:when>
 			
 			<c:otherwise>
-				No students present.	
+			<span style="margin-left: 20%; width: 25%; text-align: center">No students present.</span>	
 			</c:otherwise>
 		</c:choose>
 		<br>

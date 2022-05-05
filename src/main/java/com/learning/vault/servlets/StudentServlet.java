@@ -15,8 +15,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.learning.vault.config.HibernateUtil;
+import com.learning.vault.dao.CourseDao;
 import com.learning.vault.dao.StudentDao;
 import com.learning.vault.entity.Student;
+import com.learning.vault.entity.Subject;
 
 /**
  * Servlet implementation class StudentServlet
@@ -25,6 +27,7 @@ import com.learning.vault.entity.Student;
 public class StudentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private StudentDao studentDao = null;
+	private CourseDao courseDao = null;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -36,6 +39,13 @@ public class StudentServlet extends HttpServlet {
 	
 	public void init() {
 		studentDao = new StudentDao();
+		courseDao  = new CourseDao();
+	}
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		super.doGet(req, resp);
 	}
 
 	/**
@@ -46,10 +56,22 @@ public class StudentServlet extends HttpServlet {
 			HttpSession httpSession = request.getSession(false);
 			
 			if(httpSession!=null) {
-				System.out.println(httpSession.getId());
-				System.out.println(httpSession.getAttribute("username"));
+				String action = request.getRequestURI();
+				System.out.println("Parameter: "+request.getParameter("courseId"));
+				String _courseId = (String) request.getParameter("courseId");
+
+				List<Student> students = null;
+				if(_courseId==null) {
+					students = studentDao.getAllStudents();
+				}else {
+					_courseId = _courseId.replace("/", "");
+					System.out.println("Parameter: "+_courseId);
+					int courseId = Integer.parseInt(_courseId);
+					students = studentDao.getStudentsByCourse(courseId);
+					String courseName = courseDao.getCourse(courseId).getCourseName();
+					request.setAttribute("courseName", courseName);
+				}
 				
-				List<Student> students = studentDao.getAllStudents();
 				request.setAttribute("students", students);
 			}
 		}catch (Exception e) {

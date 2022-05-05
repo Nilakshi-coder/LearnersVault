@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.hibernate.SessionFactory;
 
 import com.learning.vault.config.HibernateUtil;
+import com.learning.vault.dao.CourseDao;
 import com.learning.vault.dao.SubjectDao;
 import com.learning.vault.entity.Subject;
 
@@ -24,6 +25,7 @@ import com.learning.vault.entity.Subject;
 public class SubjectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	SubjectDao subjectDao = null;
+	CourseDao courseDao = null;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -37,6 +39,7 @@ public class SubjectServlet extends HttpServlet {
 	@Override
 	public void init() throws ServletException {
 		subjectDao = new SubjectDao();
+		courseDao = new CourseDao();
 	}
     
 
@@ -67,6 +70,8 @@ public class SubjectServlet extends HttpServlet {
 					System.out.println("Parameter: "+_courseId);
 					int courseId = Integer.parseInt(_courseId);
 					subjects = subjectDao.getSubjectsByCourseId(courseId);
+					String courseName = courseDao.getCourse(courseId).getCourseName();
+					request.setAttribute("courseName", courseName);
 				}
 				request.setAttribute("subjects", subjects);
 			}

@@ -2,6 +2,7 @@ package com.learning.vault.dao;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -124,6 +125,35 @@ public class StudentDao {
 	            transaction = session.beginTransaction();
 	            // save the student object
 	            students = session.createQuery("from Student").list();
+	            // commit transaction
+	            transaction.commit();
+			}
+		}catch (Exception e) {
+			if (transaction != null) {
+                transaction.rollback();
+            }
+            System.err.println("Error while fetching Student details from DB: "+e);
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		return students;
+	}
+	
+	public List<Student> getStudentsByCourse(int courseId) {
+		Transaction transaction = null;
+		Session session = null;
+		List<Student> students = null;
+		try{
+			session = HibernateUtil.buildSessionFactory().openSession();
+		
+			if(session!=null) {
+				// start a transaction
+	            transaction = session.beginTransaction();
+	            // save the student object
+	            Query query = session.createQuery("from Student where enrollment_id =:courseId");
+	            query.setInteger("courseId", courseId);
+	            students = query.list();
 	            // commit transaction
 	            transaction.commit();
 			}
