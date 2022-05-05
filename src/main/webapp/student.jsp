@@ -1,5 +1,6 @@
 <%@page import="com.learning.vault.entity.Student"%>
 <%@page import="com.learning.vault.entity.StudentDetails"%>
+<%@page import="com.learning.vault.entity.Course"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -34,6 +35,7 @@
 					<th>LastName</th>
 					<th>Email Address</th>
 					<th>Contact Number</th>
+					<th>Course</th>
 				</tr>
 				
 				<%
@@ -45,15 +47,20 @@
 					<td><%=std.getFname()%></td>
 					<td><%=std.getLname()%></td>
 	
-					<%StudentDetails stdDtl = std.getStudentDetails();%>
-					<%
-					if (stdDtl != null) {
-					%>
+					<%StudentDetails stdDtl = std.getStudentDetails();
+						if (stdDtl != null) { %>
 					<td><%=stdDtl.getEmailAddress()%></td>
 					<td><%=stdDtl.getContactNo()%></td>
 					<%} else {%>
 					<td>NOTSET</td>
 					<td>NOTSET</td>
+					<%}%>
+					
+					<%Course course = std.getCourse();
+						if (course != null) { %>
+					<td><%=course.getCourseName()%></td>
+					<%} else {%>
+					<td><a href="add-course">click here to add course</a></td>
 					<%}%>
 				</tr>
 	

@@ -1,3 +1,5 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <html>
 <head>
 <meta charset="ISO-8859-1">
@@ -7,13 +9,19 @@
 </head>
 <body>
 	
+	<c:if test="${not empty loginError}">
+		<div class="w3-panel w3-red">
+	  	<p>${loginError}</p>
+		</div> 
+	</c:if>
 	
-	<!-- <div  style="padding-top: 50px; margin-left: auto; margin-right: auto; width: 40%"> -->
+
 	<div class="w3-container w3-center">
 	<form action="loginServlet" method="post">
+	
+	<center>
 	<h3 style="padding: 1%;"><b>Login to Learning Vault</b></h3>
 		
-		<center>
 		<table class="w3-border w3-gray" style="padding: 1%">
 			
 			<tr> 
@@ -30,7 +38,7 @@
 				<td colspan="2" align="center" style="padding: 1%;"> <p><input class="w3-btn w3-black " type="submit" value="Login"/></p> </td>
 			</tr>
 		</table>
-		</center>
+	</center>
 	
 	</form>
 	</div>

@@ -44,8 +44,8 @@ public class ValidationFilter implements Filter {
 			chain.doFilter(request, response);
 		}else {
 			PrintWriter out=response.getWriter();
+			request.setAttribute("loginError","Login failed! Invalid credentials");
 			request.getRequestDispatcher("index.jsp").include(request, response);
-			out.print("<h4><span style='color:red'>Invalid Username/Password! Try again!</span></h4>");
 		}
 		
 		System.out.println("Bye from Filter");
