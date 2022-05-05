@@ -13,32 +13,36 @@
 <body>
 
 	<%@include file="header.jsp"%>
+	
+	<br>
+	<br>
 
-	<center>
+	<%-- <center> --%>
+	<div class="w3-container w3-center" style="margin-left: 25%; margin-right: 25%; width: 30%">
+		<h3><b>Vault Dashboard</b></h3>
+		<h5 style="color:grey"><i>Click on links below to see the master list</i></h5>
 		<table class="w3-table">
+			
 			<tr>
-				<td>Click on links below to see master list</td>
-			</tr>
-			<tr>
-				<td><a href="student">Student Details</a></td>
+				<td class="w3-center"><a href="student">Student Details</a></td>
 			</tr>
 
 			<tr>
-				<td><a href="course">Course Details</a></td>
+				<td class="w3-center"><a href="course">Course Details</a></td>
 			</tr>
 
 			<tr>
-				<td><a href="subject">Subject Details</a></td>
+				<td class="w3-center"><a href="subject">Subject Details</a></td>
 			</tr>
 
 			<tr>
-				<td><a href="teacher">Teacher Details</a></td>
+				<td class="w3-center"><a href="teacher">Teacher Details</a></td>
 			</tr>
 
 		</table>
-	</center>
+	<%-- </center> --%>
+	</div>
 
-	</h4>
 	<br>
 
 </body>
