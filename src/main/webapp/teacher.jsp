@@ -17,10 +17,10 @@
 	<%@include file="header.jsp"%>
 
 	<div class="w3-container">
-		<h3><b>Teacher Details</b></h3>
+		<h3 style="margin-left: 20%; width: 30%; text-align: center"><b>Teacher Details</b></h3>
 		
 		<%
-		List<Teacher> teachersList = (List<Teacher>) request.getAttribute("teachersList");
+		List<Teacher> teachersList = (List<Teacher>) request.getAttribute("teachers");
 		int teacherCount = teachersList.size();
 		boolean present = teacherCount > 0;
 		System.out.println("SubjectCount: "+teacherCount+" present: "+present);
@@ -28,7 +28,7 @@
 
 		<c:choose>
 			<c:when test="<%=present%>">
-				<table class="w3-table-all">
+				<table class="w3-table-all" style="margin-left: 20%; width: 30%;">
 				<tr class="w3-blue">
 					<th>TeacherId</th>
 					<th>TeacherName</th>
@@ -53,6 +53,8 @@
 				No students present.	
 			</c:otherwise>
 		</c:choose>
+		<br>
+		<b style="margin-right: 20%; width: 60%;" class="w3-right"><a href="dashboard">Back</a></b>
 	</div>
 	
 </body>
