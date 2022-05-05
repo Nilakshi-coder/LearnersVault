@@ -34,20 +34,20 @@
   	<servlet-name>LogoutServlet</servlet-name>
   	<servlet-class>com.learning.vault.servlets.LogoutServlet</servlet-class>
   </servlet>
-  <servlet>
+  <!-- <servlet>
   	<description>
   	</description>
   	<display-name>StudentServlet</display-name>
   	<servlet-name>StudentServlet</servlet-name>
   	<servlet-class>com.learning.vault.servlets.StudentServlet</servlet-class>
-  </servlet>
-  <servlet>
+  </servlet> -->
+  <!-- <servlet>
   	<description>
   	</description>
   	<display-name>SubjectServlet</display-name>
   	<servlet-name>SubjectServlet</servlet-name>
   	<servlet-class>com.learning.vault.servlets.SubjectServlet</servlet-class>
-  </servlet>
+  </servlet> -->
   <servlet>
   	<description>
   	</description>
@@ -67,18 +67,18 @@
   	<servlet-name>LogoutServlet</servlet-name>
   	<url-pattern>/logout</url-pattern>
   </servlet-mapping>
-  <servlet-mapping>
+  <!-- <servlet-mapping>
   	<servlet-name>StudentServlet</servlet-name>
   	<url-pattern>/student</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping> -->
   <servlet-mapping>
   	<servlet-name>CourseServlet</servlet-name>
-  	<url-pattern>/course/*</url-pattern>
+  	<url-pattern>/course</url-pattern>
   </servlet-mapping>
-   <servlet-mapping>
+   <!-- <servlet-mapping>
   	<servlet-name>SubjectServlet</servlet-name>
   	<url-pattern>/subject</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping> -->
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>

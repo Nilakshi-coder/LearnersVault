@@ -1,5 +1,4 @@
 <%@page import="com.learning.vault.entity.Course"%>
-<%@page import="com.learning.vault.entity.Subject"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -16,25 +15,25 @@
 <body>
 
 	<%@include file="header.jsp"%>
-
+	<br>
 	<div class="w3-container">
-		<h3><b>Course Details</b></h3>
+		<h3 style="margin-left: 20%; width: 35%; text-align: center"><b>Course Details</b></h3>
 		
 		<%
 		List<Course> courseList = (List<Course>) request.getAttribute("courses");
-		int courseCount = courseList!= null ? courseList.size() : 0;
+		int courseCount = courseList!=null ? courseList.size(): 0;
 		boolean present = courseCount > 0;
-		System.out.println("CourseCount: "+courseCount+" present: "+present);
+		System.out.println("SubjectCount: "+courseCount+" present: "+present);
 		%>
 
 		<c:choose>
 			<c:when test="<%=present%>">
-				<table class="w3-table-all">
+				<table class="w3-table-all" style="margin-left: 20%; width: 35%; text-align: center">
 				<tr class="w3-blue">
 					<th>CourseId</th>
 					<th>CourseName</th>
-					<th>Subject</th>
-					<th>Teacher</th>
+					<th>Subjects</th>
+					<th>Students</th>
 				</tr>
 				
 				<%
@@ -44,8 +43,23 @@
 				<tr>
 					<td><%=c.getCourseId()%></td>
 					<td><%=c.getCourseName()%></td>
-					<td><a href="course/showSubjects?courseId=<%=c.getCourseId()%>">View</a></td>
-					<td><a href="course/showTeachers?courseId=<%=c.getCourseId()%>">View</a></td>
+					
+					<!-- Subject List -->
+					<td>
+						<form action="subject" method="get">
+							<input type="hidden" name="courseId" value=<%=c.getCourseId()%>/>
+							<input type="submit" value="View"/>
+						</form>
+					</td>
+					
+					<!-- Student List -->
+					<td>
+						<form action="student" method="get">
+							<input type="hidden" value=<%=c.getCourseId()%> name="courseId"/>
+							<%-- <% request.setAttribute("courseId", c.getCourseId()); %> --%>
+							<input type="submit" value="View"/>
+						</form>
+					</td>
 				</tr>
 	
 				<%}%>
@@ -55,13 +69,11 @@
 			</c:when>
 			
 			<c:otherwise>
-				No Courses present.	
+				No subjects present.	
 			</c:otherwise>
 		</c:choose>
-		
-		<br>
-		<br>
-		<a href="dashboard">Back</a>
+	<br>
+		<b style="margin-right: 20%; width: 60%;" class="w3-right"><a href="dashboard">Back</a></b>
 	</div>
 	
 </body>

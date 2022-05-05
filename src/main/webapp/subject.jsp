@@ -15,20 +15,21 @@
 <body>
 
 	<%@include file="header.jsp"%>
-
+	
+	<br>
 	<div class="w3-container">
-		<h3><b>Subject Details</b></h3>
+		<h3 style="margin-left: 20%; width: 25%; text-align: center"><b>Subject Details</b></h3>
 		
 		<%
-		List<Subject> subjectList = (List<Subject>) request.getAttribute("subjectList");
-		int subjectCount = subjectList.size();
+		List<Subject> subjectList = (List<Subject>) request.getAttribute("subjects");
+		int subjectCount = subjectList!=null ? subjectList.size(): 0;
 		boolean present = subjectCount > 0;
 		System.out.println("SubjectCount: "+subjectCount+" present: "+present);
 		%>
 
 		<c:choose>
 			<c:when test="<%=present%>">
-				<table class="w3-table-all">
+				<table class="w3-table-all" style="margin-left: 20%; width: 25%; text-align: center">
 				<tr class="w3-blue">
 					<th>SubjectId</th>
 					<th>SubjectName</th>
@@ -50,9 +51,11 @@
 			</c:when>
 			
 			<c:otherwise>
-				No students present.	
+				No subjects present.	
 			</c:otherwise>
 		</c:choose>
+		<br>
+		<b style="margin-left: 20%; width: 25%; text-align: center"><a href="dashboard">Back</a></b>
 	</div>
 	
 </body>
