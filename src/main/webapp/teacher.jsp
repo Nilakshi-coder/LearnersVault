@@ -86,14 +86,13 @@
 						</c:otherwise>
 					</c:choose>
 
-					<form action="addSubjectForTeacher"  method="get">
-					<input type="hidden" value=<%=subject%> name="subjectId" />
-					<input type="hidden" value=<%=subject%> name="subjectId" />		
-					<input type="hidden" value=<%=subject%> name="subjectId" />
-					<input class="w3-button w3-green" type="submit" value="Assign Teacher"/>	
-					<br><br>		
-				</form>
-				<a href="subject">Back</a>
+					<form action="addSubjectForTeacher" method="get">
+						<input type="hidden" value=<%=subject%> name="subjectId" /> 
+						<input class="w3-button w3-green" type="submit" value="Assign Teacher" />
+						<br>
+						<br>
+					</form>
+					<a href="subject">Back</a>
 			</c:when>
 			<c:otherwise>
 				<a href="dashboard">Back</a>

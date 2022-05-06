@@ -22,6 +22,11 @@
 		int subjectCount = subjectList!=null ? subjectList.size(): 0;
 		boolean present = subjectCount > 0;
 		System.out.println("SubjectCount: "+subjectCount+" present: "+present);
+		int courseId = -1;
+		if(request.getAttribute("courseId")!=null){
+			courseId = (Integer)request.getAttribute("courseId");
+		}
+		 
 		String courseName = (String)request.getAttribute("courseName");
 		Teacher teacher = (Teacher) request.getAttribute("teacher");
 		String teacherName = teacher!=null?teacher.getTeacherName():null;
@@ -89,12 +94,19 @@
 			</c:otherwise>
 		</c:choose>
 		<br>
-		<b style="margin-left: 20%; width: 25%; text-align: center">
+		
+		<b style="margin-right: 20%; width: 60%;" class="w3-right">
+		
 		<c:choose>
 			<c:when test="<%=teacherName!=null%>">
 				<a href="teacher">
 			</c:when>
 			<c:when test="<%=courseName!=null%>">
+				<form action="addSubjectsForCourse" method="get">
+					<input type="hidden" value=<%=courseId%> name="courseId" /> 
+					<input class="w3-button w3-green" type="submit" value="Assign Subject" />
+					<br> <br>
+				</form>
 				<a href="course">
 			</c:when>
 			<c:otherwise>

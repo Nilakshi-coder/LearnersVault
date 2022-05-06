@@ -87,7 +87,13 @@ UPDATE `learners_academy`.`subject` SET `teacher_id` = '5' WHERE (`subject_id` =
 
 select t.teacher_id, t.teacher_name, s.subject_name, s.subject_id from learners_academy.teacher t, learners_academy.subject s
 where t.teacher_id=s.teacher_id
-group by s.subject_name
+group by s.subject_name;
+
+select c.course_id, c.course_name, s.subject_name, s.subject_id from learners_academy.course c, learners_academy.subject s
+where  
+
+
+
 
 
 

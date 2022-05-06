@@ -75,6 +75,7 @@ public class SubjectServlet extends HttpServlet {
 					int courseId = Integer.parseInt(_courseId);
 					subjects = subjectDao.getSubjectsByCourse(courseId);
 					String courseName = courseDao.getCourse(courseId).getCourseName();
+					request.setAttribute("courseId", courseId);
 					request.setAttribute("courseName", courseName);
 					
 				}else if(_teacherId!=null) {

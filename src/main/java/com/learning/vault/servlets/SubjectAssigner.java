@@ -11,66 +11,62 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-
-import com.learning.vault.config.HibernateUtil;
+import com.learning.vault.dao.CourseDao;
+import com.learning.vault.dao.SubjectDao;
 import com.learning.vault.entity.Course;
-import com.learning.vault.entity.Student;
+import com.learning.vault.entity.Subject;
+import com.learning.vault.util.StringUtils;
 
 /**
  * Servlet implementation class CourseEnrollmentServlet
  */
-@WebServlet("/enrollStudent")
-public class CourseEnrollmentServlet extends HttpServlet {
+@WebServlet("/addSubjectsForCourse")
+public class SubjectAssigner extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private CourseDao courseDao = null;
+	private SubjectDao subjectDao = null;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public CourseEnrollmentServlet() {
+	public SubjectAssigner() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
+	@Override
+	public void init() throws ServletException {
+		courseDao = new CourseDao();
+		subjectDao = new SubjectDao();
+	}
+
+
 
 	/**
 	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		try {
+			HttpSession httpSession = request.getSession(false);
+			
+			if(httpSession!=null) {				
+				String _courseId = request.getParameter("courseId");
+				System.out.println("course: "+_courseId);
 
-			SessionFactory factory = HibernateUtil.buildSessionFactory();
-			System.out.println("SessionFactory: "+factory);
-
-			if(factory!=null) {
-				Session dbSession = factory.openSession();
-
-				try {
-					dbSession.beginTransaction();
-	
-					System.out.println("student: "+ request.getParameter("student"));
-	
-					int studentId = Integer.parseInt(request.getParameter("student"));
-					Student student = (Student)dbSession.get(Student.class, studentId);
-					request.setAttribute("student", student);
-					
-					List<Course> courses = (List<Course>)dbSession.createQuery("from Course").list();
-					request.setAttribute("courseList", courses);
-	
-					
-				}catch (Exception e) {
-					System.err.println("Error while calling fetching student and courseData "+e);
-				}finally {
-					dbSession.getTransaction().commit();
-					dbSession.close();
+				if(!StringUtils.isNullOrEmpty(_courseId)) {
+					int courseId = Integer.parseInt(request.getParameter("courseId"));
+					Course course = courseDao.getCourse(courseId);
+					request.setAttribute("course", course);
+					List<Subject> subjects = courseDao.getNonAssignedSubjects(courseId);
+					request.setAttribute("subjects", subjects);
 				}
 			}
-
 		}catch (Exception e) {
-			System.err.println("Error while calling CourseEnrollmentServlet "+e);
+			System.err.println("Error while calling Student Servlet "+e);
 		}
-
-		RequestDispatcher rd = request.getRequestDispatcher("courseEnroll.jsp");
+		
+		RequestDispatcher rd = request.getRequestDispatcher("assign-subject.jsp");
 		rd.forward(request, response);
 	}
 
@@ -78,8 +74,7 @@ public class CourseEnrollmentServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		service(request, response);
 	}
 
 	/**

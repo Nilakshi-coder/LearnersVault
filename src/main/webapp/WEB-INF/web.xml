@@ -48,13 +48,13 @@
   	<servlet-name>SubjectServlet</servlet-name>
   	<servlet-class>com.learning.vault.servlets.SubjectServlet</servlet-class>
   </servlet> -->
-  <servlet>
+  <!-- <servlet>
   	<description>
   	</description>
   	<display-name>CourseServlet</display-name>
   	<servlet-name>CourseServlet</servlet-name>
   	<servlet-class>com.learning.vault.servlets.CourseServlet</servlet-class>
-  </servlet>
+  </servlet> -->
   <servlet-mapping>
   	<servlet-name>LoginServlet</servlet-name>
   	<url-pattern>/loginServlet</url-pattern>
@@ -71,10 +71,10 @@
   	<servlet-name>StudentServlet</servlet-name>
   	<url-pattern>/student</url-pattern>
   </servlet-mapping> -->
-  <servlet-mapping>
+  <!-- <servlet-mapping>
   	<servlet-name>CourseServlet</servlet-name>
   	<url-pattern>/course</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping> -->
    <!-- <servlet-mapping>
   	<servlet-name>SubjectServlet</servlet-name>
   	<url-pattern>/subject</url-pattern>
