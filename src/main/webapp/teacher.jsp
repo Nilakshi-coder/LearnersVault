@@ -22,8 +22,14 @@
 		int teacherCount = teachersList!=null ? teachersList.size() : 0;
 		boolean present = teacherCount > 0;
 		System.out.println("TeacherCount: "+teacherCount+" present: "+present);
-		Subject subject = (Subject)request.getAttribute("subject");
-		String subjectName = subject!=null?subject.getSubjectName():null;
+		
+		int subject = -1;
+		if(request.getAttribute("subjectId")!=null){
+		 subject = (Integer)request.getAttribute("subjectId");
+		}
+		String subjectName = (String)request.getAttribute("subjectName");
+		String successMsg = (String)request.getAttribute("success");
+		boolean messageFound = successMsg==null ? false : true;
 	%>
 	
 	<br>
@@ -66,18 +72,34 @@
 				<span style="margin-left: 20%; width: 25%; text-align: center; color:red">No Teachers present.</span>
 			</c:otherwise>
 		</c:choose>
-		<br>
 		<b style="margin-right: 20%; width: 60%;" class="w3-right">
+
 		<c:choose>
 			<c:when test="<%=subjectName!=null%>">
-				<a href="subject">
+
+					<c:choose>
+						<c:when test="<%=messageFound%>">
+							<span style="text-decoration: green"><%=successMsg%></span>
+						</c:when>
+						<c:otherwise>
+							<br>
+						</c:otherwise>
+					</c:choose>
+
+					<form action="addSubjectForTeacher"  method="get">
+					<input type="hidden" value=<%=subject%> name="subjectId" />
+					<input type="hidden" value=<%=subject%> name="subjectId" />		
+					<input type="hidden" value=<%=subject%> name="subjectId" />
+					<input class="w3-button w3-green" type="submit" value="Assign Teacher"/>	
+					<br><br>		
+				</form>
+				<a href="subject">Back</a>
 			</c:when>
 			<c:otherwise>
-				<a href="dashboard">
+				<a href="dashboard">Back</a>
 			</c:otherwise>
 		</c:choose>
-		Back
-		</a></b>
+		</b>
 	</div>
 	
 </body>

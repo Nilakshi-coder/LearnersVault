@@ -16,12 +16,13 @@ import com.learning.vault.dao.TeacherDao;
 import com.learning.vault.entity.Student;
 import com.learning.vault.entity.Subject;
 import com.learning.vault.entity.Teacher;
+import com.learning.vault.util.StringUtils;
 
 /**
  * Servlet implementation class CourseEnrollmentServlet
  */
 @WebServlet("/addSubjectForTeacher")
-public class SubjectAssignee extends HttpServlet {
+public class TeacherAssigner extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private TeacherDao teacherDao = null;
 	private SubjectDao subjectDao = null;
@@ -29,7 +30,7 @@ public class SubjectAssignee extends HttpServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public SubjectAssignee() {
+	public TeacherAssigner() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -50,32 +51,23 @@ public class SubjectAssignee extends HttpServlet {
 		try {
 			HttpSession httpSession = request.getSession(false);
 			
-			if(httpSession!=null) {
-				String action = request.getRequestURI();
-				System.out.println("Parameter: "+request.getParameter("teacherId"));
-				String _teacherId = (String) request.getParameter("teacherId");
+			if(httpSession!=null) {				
+				String _subjectId = request.getParameter("subjectId");
+				System.out.println("subject: "+_subjectId);
 
-				Teacher teacher = null;
-				List<Subject> subjects = null;
-				if(_teacherId==null) {
-					subjects = subjectDao.getAllSubjects();
-				}else {
-					_teacherId = _teacherId.replace("/", "");
-					System.out.println("Parameter: "+_teacherId);
-					int teacherId = Integer.parseInt(_teacherId);
-					teacher = teacherDao.getTeacher(teacherId);
-					subjects = subjectDao.getAllSubjects();
-					request.setAttribute("teacher", teacher);
-					request.setAttribute("subjects", subjects);
+				if(!StringUtils.isNullOrEmpty(_subjectId)) {
+					int subjectId = Integer.parseInt(request.getParameter("subjectId"));
+					Subject subject = subjectDao.getSubject(subjectId);
+					request.setAttribute("subject", subject);
+					List<Teacher> teachers = teacherDao.getAllTeachers();
+					request.setAttribute("teachers", teachers);
 				}
-				
-				request.setAttribute("students", subjects);
 			}
 		}catch (Exception e) {
 			System.err.println("Error while calling Student Servlet "+e);
 		}
 		
-		RequestDispatcher rd = request.getRequestDispatcher("assign-subject.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("assign-teacher.jsp");
 		rd.forward(request, response);
 	}
 

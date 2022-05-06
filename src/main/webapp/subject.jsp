@@ -104,16 +104,6 @@
 			Back
 		</a></b>
 		
-		<c:if test="<%=teacherName!=null%>">
-		<b style="margin-left: 20%; width: 25%; text-align: center">
-			<form action="addSubjectForTeacher"  method="get">
-			
-				<input type="hidden" value=<%=teacher.getTeacherId()%> name="teacherId" />
-				<input type="submit" value="Add Subject">
-				
-			</form>
-		</b>
-		</c:if>
 	</div>
 	
 </body>

@@ -16,6 +16,7 @@ import com.learning.vault.dao.TeacherDao;
 import com.learning.vault.entity.Student;
 import com.learning.vault.entity.Subject;
 import com.learning.vault.entity.Teacher;
+import com.learning.vault.util.StringUtils;
 
 /**
  * Servlet implementation class TeacherServlet
@@ -54,16 +55,22 @@ public class TeacherServlet extends HttpServlet {
 				String _subjectId = request.getParameter("subjectId");
 				
 				List<Teacher> teachers = null;
-				if(_subjectId==null) {
+				if(StringUtils.isNullOrEmpty(_subjectId)) {
 					teachers = teacherDao.getAllTeachers();
+					
 				}else {
-					_subjectId = _subjectId.replace("/", "");
-					System.out.println("Parameter: "+_subjectId);
+					_subjectId = StringUtils.removeSlash(_subjectId);
 					int subjectId = Integer.parseInt(_subjectId);
 					teachers = teacherDao.getTeachersBySubject(subjectId);
 					System.out.println(teachers);
 					Subject subject = (Subject)subjectDao.getSubject(subjectId);
-					request.setAttribute("subject", subject);
+					String subjectName = subject.getSubjectName();
+					//request.setAttribute("subject", subject);
+					request.setAttribute("subjectId", subjectId);
+					request.setAttribute("subjectName", subjectName);
+					request.setAttribute("success",request.getAttribute("success"));
+					//String successMsg = (String)request.getAttribute("success");
+					//boolean messageFound = successMsg==null ? false : true;
 				}
 				request.setAttribute("teachers", teachers);
 			}

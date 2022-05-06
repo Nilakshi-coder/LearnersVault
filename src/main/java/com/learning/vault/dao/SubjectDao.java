@@ -7,7 +7,9 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.learning.vault.config.HibernateUtil;
+import com.learning.vault.entity.Course;
 import com.learning.vault.entity.Subject;
+import com.learning.vault.entity.Teacher;
 
 public class SubjectDao {
 
@@ -36,7 +38,7 @@ public class SubjectDao {
 		}
 	}
 	
-	public void updateSubject(Subject subject) {
+	public void updateSubject(Subject subject, Course course, Teacher teacher) {
 		Transaction transaction = null;
 		Session session = null;
 		try{
@@ -46,7 +48,18 @@ public class SubjectDao {
 				// start a transaction
 	            transaction = session.beginTransaction();
 	            // save the Subject object
-	            session.update(subject);
+	            
+	            if(subject!=null) {
+	            	
+	            	if(course!=null)
+	            		subject.setCourse(course);
+	            	
+	            	if(teacher!=null)
+	            		subject.setTeacher(teacher);
+	            	
+	            	session.update(subject);
+	            }
+	            
 	            // commit transaction
 	            transaction.commit();
 			}
@@ -55,6 +68,37 @@ public class SubjectDao {
                 transaction.rollback();
             }
             System.err.println("Error while updating Subject details in DB: "+e);
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+	}
+	
+	public void deleteTeacher(Subject subject, Teacher teacher) {
+		Transaction transaction = null;
+		Session session = null;
+		try{
+			session = HibernateUtil.buildSessionFactory().openSession();
+		
+			if(session!=null) {
+				// start a transaction
+	            transaction = session.beginTransaction();
+	            // save the Subject object
+	            if(subject!=null) {
+
+	            	if(teacher!=null)
+	            		subject.setTeacher(null);
+	            	
+	            	session.update(subject);
+	            }
+	            // commit transaction
+	            transaction.commit();
+			}
+		}catch (Exception e) {
+			if (transaction != null) {
+                transaction.rollback();
+            }
+            System.err.println("Error while deleting Subject details from DB: "+e);
 		}finally {
 			if(session!=null)
 				session.close();
