@@ -140,7 +140,7 @@ public class SubjectDao {
 		return subjects;
 	}
 	
-	public List<Subject> getSubjectsByCourseId(int courseId) {
+	public List<Subject> getSubjectsByCourse(int courseId) {
 		Transaction transaction = null;
 		Session session = null;
 		List<Subject> subjects = null;
@@ -153,6 +153,36 @@ public class SubjectDao {
 	            // save the Subject object
 	            Query query = session.createQuery("from Subject where course_id =:courseId");
 	            query.setInteger("courseId", courseId);
+	            subjects = query.list();
+
+	            // commit transaction
+	            transaction.commit();
+			}
+		}catch (Exception e) {
+			if (transaction != null) {
+                transaction.rollback();
+            }
+            System.err.println("Error while fetching Subject details from DB: "+e);
+		}finally {
+			if(session!=null)
+				session.close();
+		}
+		return subjects;
+	}
+	
+	public List<Subject> getSubjectsByTeacher(int teacherId) {
+		Transaction transaction = null;
+		Session session = null;
+		List<Subject> subjects = null;
+		try{
+			session = HibernateUtil.buildSessionFactory().openSession();
+		
+			if(session!=null) {
+				// start a transaction
+	            transaction = session.beginTransaction();
+	            // save the Subject object
+	            Query query = session.createQuery("from Subject where teacher_id =:teacherId");
+	            query.setInteger("teacherId", teacherId);
 	            subjects = query.list();
 
 	            // commit transaction

@@ -11,7 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.learning.vault.dao.SubjectDao;
 import com.learning.vault.dao.TeacherDao;
+import com.learning.vault.entity.Student;
+import com.learning.vault.entity.Subject;
 import com.learning.vault.entity.Teacher;
 
 /**
@@ -21,6 +24,7 @@ import com.learning.vault.entity.Teacher;
 public class TeacherServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private TeacherDao teacherDao = null;
+	private SubjectDao subjectDao = null;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -33,6 +37,7 @@ public class TeacherServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
     	teacherDao = new TeacherDao();
+    	subjectDao = new SubjectDao();
     }
 
 	/**
@@ -46,7 +51,20 @@ public class TeacherServlet extends HttpServlet {
 				System.out.println(httpSession.getId());
 				System.out.println(httpSession.getAttribute("username"));
 				
-				List<Teacher> teachers = teacherDao.getAllTeachers();
+				String _subjectId = request.getParameter("subjectId");
+				
+				List<Teacher> teachers = null;
+				if(_subjectId==null) {
+					teachers = teacherDao.getAllTeachers();
+				}else {
+					_subjectId = _subjectId.replace("/", "");
+					System.out.println("Parameter: "+_subjectId);
+					int subjectId = Integer.parseInt(_subjectId);
+					teachers = teacherDao.getTeachersBySubject(subjectId);
+					System.out.println(teachers);
+					Subject subject = (Subject)subjectDao.getSubject(subjectId);
+					request.setAttribute("subject", subject);
+				}
 				request.setAttribute("teachers", teachers);
 			}
 			

@@ -19,6 +19,8 @@
 
 	<%@include file="header.jsp"%>
 	
+	<br>
+	
 	<%
 		List<Student> studentList = (List<Student>) request.getAttribute("students");
 		int studentCount = studentList!=null ? studentList.size() : 0;
@@ -91,11 +93,21 @@
 			</c:when>
 			
 			<c:otherwise>
-			<span style="margin-left: 20%; width: 25%; text-align: center">No students present.</span>	
+			<span style="margin-left: 20%; width: 25%; text-align: center; color:red">No students present.</span>	
 			</c:otherwise>
 		</c:choose>
 		<br>
-		<b style="margin-right: 20%; width: 60%;" class="w3-right"><a href="dashboard">Back</a></b>
+		<b style="margin-right: 20%; width: 60%;" class="w3-right">
+			<c:choose>
+				<c:when test="<%=courseName!=null%>">
+					<a href="course">
+				</c:when>
+				<c:otherwise>
+					<a href="dashboard">
+				</c:otherwise>
+			</c:choose>
+		Back
+		</a></b>
 	
 	</div>
 	

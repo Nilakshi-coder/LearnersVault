@@ -1,4 +1,5 @@
 <%@page import="com.learning.vault.entity.Course"%>
+<%@page import="com.learning.vault.entity.Subject"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -13,18 +14,18 @@
 <title>Students Dashboard</title>
 </head>
 <body>
+	
+	<%
+		List<Course> courseList = (List<Course>) request.getAttribute("courses");
+		int courseCount = courseList!=null ? courseList.size(): 0;
+		boolean present = courseCount > 0;
+		System.out.println("SubjectCount: "+courseCount+" present: "+present);
+	%>
 
 	<%@include file="header.jsp"%>
 	<br>
 	<div class="w3-container">
 		<h3 style="margin-left: 20%; width: 35%; text-align: center"><b>Course Details</b></h3>
-		
-		<%
-		List<Course> courseList = (List<Course>) request.getAttribute("courses");
-		int courseCount = courseList!=null ? courseList.size(): 0;
-		boolean present = courseCount > 0;
-		System.out.println("SubjectCount: "+courseCount+" present: "+present);
-		%>
 
 		<c:choose>
 			<c:when test="<%=present%>">
@@ -69,7 +70,7 @@
 			</c:when>
 			
 			<c:otherwise>
-				No subjects present.	
+				<span style="margin-left: 20%; width: 25%; text-align: center; color:red">No subjects present.</span>	
 			</c:otherwise>
 		</c:choose>
 	<br>
