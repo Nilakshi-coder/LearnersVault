@@ -89,8 +89,9 @@ select t.teacher_id, t.teacher_name, s.subject_name, s.subject_id from learners_
 where t.teacher_id=s.teacher_id
 group by s.subject_name;
 
-select c.course_id, c.course_name, s.subject_name, s.subject_id from learners_academy.course c, learners_academy.subject s
-where  
+select * from learners_academy.course c, learners_academy.subject s
+where s.course_id = c.course_id
+group by c.course_name
 
 
 
