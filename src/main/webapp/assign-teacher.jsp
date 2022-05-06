@@ -25,7 +25,7 @@
 	<br>
 	<br>
 	<br>
-	<form action="saveSubject" method="get">
+	<form action="saveSubject" method="post">
 	<table align="center" class="w3-table w3-border" style="margin-left: 25%; width: 30%">
 		<tr>
 			<td class="w3-pannel w3-blue" colspan="2" style="text-align: center"><b>Assign Teacher</b></td>

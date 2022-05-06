@@ -52,7 +52,7 @@
 				</tr>
 				
 				<% for (Student std : studentList) { %>
-					<form action="enrollStudent" method="get">
+					<form action="enrollStudent" method="post">
 						<tr>
 							<td><%=std.getStudent_id()%></td>
 							<td><%=std.getFname()%></td>

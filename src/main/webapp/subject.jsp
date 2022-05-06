@@ -11,7 +11,7 @@
 <meta charset="ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<title>Students Dashboard</title>
+<title>Subject Dashboard</title>
 </head>
 <body>
 
@@ -66,7 +66,7 @@
 					
 					<!-- Teacher List -->
 					<td>
-						<form action="teacher" method="get">
+						<form action="teacher" method="post">
 							<input type="hidden" value=<%=s.getSubjectId()%> name="subjectId"/>
 							<input type="submit" value="View"/>
 						</form>
@@ -102,7 +102,7 @@
 				<a href="teacher">
 			</c:when>
 			<c:when test="<%=courseName!=null%>">
-				<form action="addSubjectsForCourse" method="get">
+				<form action="addSubjectsForCourse" method="post">
 					<input type="hidden" value=<%=courseId%> name="courseId" /> 
 					<input class="w3-button w3-green" type="submit" value="Assign Subject" />
 					<br> <br>

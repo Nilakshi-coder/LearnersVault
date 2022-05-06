@@ -11,7 +11,7 @@
 <meta charset="ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<title>Students Dashboard</title>
+<title>Course Dashboard</title>
 </head>
 <body>
 	
@@ -47,7 +47,7 @@
 					
 					<!-- Subject List -->
 					<td>
-						<form action="subject" method="get">
+						<form action="subject" method="post">
 							<input type="hidden" name="courseId" value=<%=c.getCourseId()%>/>
 							<input type="submit" value="View"/>
 						</form>
@@ -55,7 +55,7 @@
 					
 					<!-- Student List -->
 					<td>
-						<form action="student" method="get">
+						<form action="student" method="post">
 							<input type="hidden" value=<%=c.getCourseId()%> name="courseId"/>
 							<%-- <% request.setAttribute("courseId", c.getCourseId()); %> --%>
 							<input type="submit" value="View"/>

@@ -86,7 +86,7 @@
 						</c:otherwise>
 					</c:choose>
 
-					<form action="addSubjectForTeacher" method="get">
+					<form action="addSubjectForTeacher" method="post">
 						<input type="hidden" value=<%=subject%> name="subjectId" /> 
 						<input class="w3-button w3-green" type="submit" value="Assign Teacher" />
 						<br>
